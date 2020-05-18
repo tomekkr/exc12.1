@@ -9,15 +9,13 @@ class Test {
 
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                List<String> elements = List.of(line.split(";"));
-                System.out.println(elements);
-
                 List<Integer> integers = new ArrayList<>();
-                for (String element : elements) {
-                    int number = Integer.parseInt(element);
+                scanner.useDelimiter(";");
+                while (scanner.hasNextInt()) {
+                    Integer number = scanner.nextInt();
                     integers.add(number);
                 }
+                System.out.println(integers);
 
                 Set<String> resultSet = new TreeSet<>();
                 for (int i = 0; i < integers.size(); i++) {
