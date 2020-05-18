@@ -9,19 +9,23 @@ class Test {
 
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
-                List<Integer> integers = new ArrayList<>();
+                List<Integer> integersList = new ArrayList<>();
                 scanner.useDelimiter(";");
                 while (scanner.hasNextInt()) {
                     Integer number = scanner.nextInt();
-                    integers.add(number);
+                    integersList.add(number);
                 }
-                System.out.println(integers);
+                System.out.println(integersList);
 
-                Set<String> resultSet = new TreeSet<>();
-                for (int i = 0; i < integers.size(); i++) {
-                    resultSet.add(integers.get(i) + " – liczba wystąpień:  " + Collections.frequency(integers, integers.get(i)));
+                Map<Integer, Integer> numbersMap = new TreeMap<>();
+                for (int i = 0; i < integersList.size(); i++) {
+                    int key = integersList.get(i);
+                    int value = Collections.frequency(integersList, integersList.get(i));
+                    numbersMap.put(key, value);
                 }
-                System.out.println(resultSet);
+
+                String result = numbersMap.toString().replaceAll("=", " – liczba wystąpień: ");
+                System.out.println(result);
             }
         } catch (FileNotFoundException e) {
             System.err.println("Nie odnaleziono pliku: " + fileName);
@@ -29,4 +33,5 @@ class Test {
             System.err.println("Nieprawidłowe dane w pliku: " + fileName);
         }
     }
+
 }
